@@ -14,7 +14,6 @@ namespace _3._Scripts.Inputs
         {
             return new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")).normalized;
         }
-
         
         public bool GetAction()
         {

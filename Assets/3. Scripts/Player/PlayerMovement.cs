@@ -11,10 +11,10 @@ namespace _3._Scripts.Player
     public class PlayerMovement : MonoBehaviour
     {
         private const float Gravity = -9.81f;
+        private const float TurnSmoothTime = 0.1f;
         
         [Tab("Setting")]
         [SerializeField] private float speed;
-        [SerializeField] private float turnSmoothTime;
         [SerializeField] private float jumpHeight;
         [Tab("Components")]
         [SerializeField] private CinemachineFreeLook freeLookCamera;
@@ -23,18 +23,16 @@ namespace _3._Scripts.Player
         [SerializeField] private float groundDistance;
         [SerializeField] private LayerMask groundMask;
         
-        
         private CharacterController _characterController;
         private Transform _camera;
-        private float _turnSmoothVelocity;
         private IInput _input;
         private Vector3 _velocity;
+        private float _turnSmoothVelocity;
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
             if (Camera.main is not null) _camera = Camera.main.transform;
-
             _input = new DesktopInput();
         }
 
@@ -56,14 +54,13 @@ namespace _3._Scripts.Player
 
             var targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + _camera.eulerAngles.y;
             var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity,
-                turnSmoothTime);
+                TurnSmoothTime);
             var moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             transform.rotation = Quaternion.Euler(0, angle, 0);
             _characterController.Move(moveDirection * speed * Time.deltaTime);
         }
-
-
+        
         private void Look()
         {
             Cursor.visible = !_input.CanLook();
