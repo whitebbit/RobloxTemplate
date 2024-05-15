@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _3._Scripts.Saves;
 
 namespace GBGamesPlugin
 {
@@ -8,7 +9,9 @@ namespace GBGamesPlugin
     {
         // Технические сохранения.(Не удалять)
         public int saveID;
-        
-        // Ваши сохранения, если вы привыкли пользоваться сохранением через объекты. Можно задать полям значения по умолчанию      
+
+        // Ваши сохранения, если вы привыкли пользоваться сохранением через объекты. Можно задать полям значения по умолчанию     
+        public CharacterSaves characterSaves = new();
+        public WalletSave walletSave = new();
     }
 }

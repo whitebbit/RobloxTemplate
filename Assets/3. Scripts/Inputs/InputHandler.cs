@@ -23,9 +23,9 @@ namespace _3._Scripts.Inputs
                             mobileInput.gameObject.SetActive(true);
                         return mobileInput;
                     case DeviceType.Desktop:
-                        if(!mobileInput.gameObject.activeSelf)
-                            mobileInput.gameObject.SetActive(true);
-                        return mobileInput;
+                        if(mobileInput.gameObject.activeSelf)
+                            mobileInput.gameObject.SetActive(false);
+                        return _desktopInput ??= new DesktopInput();
                     case DeviceType.Tablet:
                         return default;
                     case DeviceType.TV:
@@ -35,10 +35,6 @@ namespace _3._Scripts.Inputs
                 }
             }
         }
-
-        protected override void OnAwake()
-        {
-            _desktopInput = new DesktopInput();
-        }
+        
     }
 }

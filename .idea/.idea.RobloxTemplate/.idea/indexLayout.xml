@@ -3,6 +3,7 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
+      <Path>Library/PackageCache/com.unity.addressables@1.21.19</Path>
       <Path>Library/PackageCache/com.unity.burst@1.8.12</Path>
       <Path>Library/PackageCache/com.unity.cinemachine@2.9.7</Path>
       <Path>Library/PackageCache/com.unity.collab-proxy@2.3.1</Path>
@@ -11,9 +12,11 @@
       <Path>Library/PackageCache/com.unity.ide.rider@3.0.28</Path>
       <Path>Library/PackageCache/com.unity.ide.visualstudio@2.0.22</Path>
       <Path>Library/PackageCache/com.unity.ide.vscode@1.2.5</Path>
+      <Path>Library/PackageCache/com.unity.localization@1.4.5</Path>
       <Path>Library/PackageCache/com.unity.mathematics@1.2.6</Path>
       <Path>Library/PackageCache/com.unity.nuget.newtonsoft-json@3.2.1</Path>
       <Path>Library/PackageCache/com.unity.performance.profile-analyzer@1.2.2</Path>
+      <Path>Library/PackageCache/com.unity.scriptablebuildpipeline@1.21.21</Path>
       <Path>Library/PackageCache/com.unity.searcher@4.9.2</Path>
       <Path>Library/PackageCache/com.unity.settings-manager@2.0.1</Path>
       <Path>Library/PackageCache/com.unity.test-framework@1.1.33</Path>
