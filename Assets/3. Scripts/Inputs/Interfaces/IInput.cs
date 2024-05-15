@@ -11,5 +11,7 @@ namespace _3._Scripts.Inputs.Interfaces
         public bool GetJump();
 
         public bool CanLook();
+
+        public void CursorState();
     }
 }

@@ -33,7 +33,11 @@ namespace _3._Scripts.Player
         {
             _characterController = GetComponent<CharacterController>();
             if (Camera.main is not null) _camera = Camera.main.transform;
-            _input = new DesktopInput();
+        }
+
+        private void Start()
+        {
+            _input = InputHandler.Instance.Input;
         }
 
         private void Update()
@@ -63,8 +67,7 @@ namespace _3._Scripts.Player
         
         private void Look()
         {
-            Cursor.visible = !_input.CanLook();
-            Cursor.lockState = _input.CanLook() ? CursorLockMode.Locked : CursorLockMode.None;
+            _input.CursorState();
 
             if (!_input.CanLook())
             {

@@ -29,5 +29,11 @@ namespace _3._Scripts.Inputs
         {
             return Input.GetMouseButton(1);
         }
+
+        public void CursorState()
+        {
+            Cursor.visible = !CanLook();
+            Cursor.lockState = CanLook() ? CursorLockMode.Locked : CursorLockMode.None;
+        }
     }
 }
