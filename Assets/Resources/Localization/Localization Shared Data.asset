@@ -35,6 +35,14 @@ MonoBehaviour:
     m_Key: spin
     m_Metadata:
       m_Items: []
+  - m_Id: 284006909816832
+    m_Key: free_gift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 297510307966976
+    m_Key: exit_resets_progress
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

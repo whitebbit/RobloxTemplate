@@ -5,7 +5,7 @@ using VInspector;
 
 namespace _3._Scripts.UI.Scriptable.Roulette
 {
-    public abstract class RouletteItem: ScriptableObject
+    public abstract class GiftItem: ScriptableObject
     {
         public abstract Sprite Icon();
         public abstract string Title();

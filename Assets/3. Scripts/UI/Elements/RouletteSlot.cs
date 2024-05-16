@@ -10,16 +10,16 @@ namespace _3._Scripts.UI.Elements
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text title;
 
-        private RouletteItem _rouletteItem;
+        private GiftItem _giftItem;
         
-        public void Initialize(RouletteItem item)
+        public void Initialize(GiftItem item)
         {
-            _rouletteItem = item;
+            _giftItem = item;
             icon.sprite = item.Icon();
             title.text = item.Title();
         }
 
-        public void GetReward() => _rouletteItem.OnReward();
+        public void GetReward() => _giftItem.OnReward();
 
     }
 }

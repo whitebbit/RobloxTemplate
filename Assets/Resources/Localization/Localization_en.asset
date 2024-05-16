@@ -38,6 +38,14 @@ MonoBehaviour:
     m_Localized: SPIN!
     m_Metadata:
       m_Items: []
+  - m_Id: 284006909816832
+    m_Localized: Free gifts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 297510307966976
+    m_Localized: Exit resets progress!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

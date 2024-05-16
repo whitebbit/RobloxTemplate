@@ -16,7 +16,7 @@ namespace _3._Scripts.UI.Panels
         [Tab("Roulette")] [SerializeField] private RectTransform roulette;
         [SerializeField] private RectTransform detectObject;
         [SerializeField] private List<RouletteSlot> slots = new();
-        [Tab("Rewards")] [SerializeField] private List<RouletteItem> items = new();
+        [Tab("Rewards")] [SerializeField] private List<GiftItem> items = new();
         [Tab("Buttons")] [SerializeField] private Button spinButton;
         [Tab("Timer")] [SerializeField] private float timerDuration = 60;
 

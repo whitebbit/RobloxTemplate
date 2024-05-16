@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _3._Scripts.Currency.Scriptable;
 using _3._Scripts.UI.Elements;
 using _3._Scripts.UI.Panels.Base;
 using _3._Scripts.UI.Scriptable.Shop;
 using GBGamesPlugin;
 using UnityEngine;
+using VInspector;
 
 namespace _3._Scripts.UI.Panels
 {
     public abstract class ShopPanel : SimplePanel
-    {
+    { 
+        [Tab("Data")]
         [SerializeField] private List<ShopItem> shopItems = new();
+        [SerializeField] private List<CurrencyData> currencyData = new();
+        
+        [Tab("Components")]
         [SerializeField] private Transform container;
-
         [SerializeField] private ShopSlot prefab;
 
         private readonly List<ShopSlot> _shopSlots = new();
@@ -43,7 +48,8 @@ namespace _3._Scripts.UI.Panels
             foreach (var item in items)
             {
                 var obj = Instantiate(prefab, container);
-                obj.SetView(item);
+                var currency = currencyData.FirstOrDefault(c => c.Type == item.CurrencyType);
+                obj.SetView(item, currency);
                 obj.SetAction(() => OnClick(item.ID));
                 SetSlotsState(item.ID, obj);
 

@@ -10,7 +10,6 @@ namespace GBGamesPlugin
     {
         public static GBGames instance { get; private set; }
         public GBGamesSettings settings;
-        
         private void Awake()
         {
             StartCoroutine(Initialize());
@@ -24,7 +23,7 @@ namespace GBGamesPlugin
             Advertisement();
             Platform();
             Player();
-            Game();
+            Game(); 
         }
         
         private void Singleton()

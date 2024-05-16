@@ -11,7 +11,7 @@ using VInspector;
 namespace _3._Scripts.UI.Scriptable.Roulette
 {
     [CreateAssetMenu(fileName = "CurrencyRouletteItem", menuName = "Roulette Item/Currency", order = 0)]
-    public class CurrencyRouletteItem : RouletteItem
+    public class CurrencyGiftItem : GiftItem
     {
         [Tab("Base settings")]
         [SerializeField] private CurrencyType type;

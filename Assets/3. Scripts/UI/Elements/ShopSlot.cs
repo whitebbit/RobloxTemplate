@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _3._Scripts.Currency.Scriptable;
 using _3._Scripts.UI.Scriptable.Shop;
 using _3._Scripts.UI.Structs;
 using TMPro;
@@ -37,7 +38,7 @@ namespace _3._Scripts.UI.Elements
             _button = GetComponent<Button>();
         }
 
-        public void SetView(ShopItem item)
+        public void SetView(ShopItem item, CurrencyData currencyData)
         {
             var rarity = rarityTables.FirstOrDefault(r => r.Rarity == item.Rarity);
             ID = item.ID;
@@ -46,6 +47,7 @@ namespace _3._Scripts.UI.Elements
             glow.color = rarity.MainColor;
             backGlow.color = rarity.AdditionalColor;
             icon.sprite = item.Icon;
+            currencyIcon.sprite = currencyData.Icon;
         }
 
         public void SetAction(Action action) => _button.onClick.AddListener(() => action?.Invoke());
