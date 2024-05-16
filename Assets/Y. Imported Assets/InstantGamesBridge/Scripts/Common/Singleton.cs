@@ -8,7 +8,7 @@ namespace InstantGamesBridge.Common
 
         private static bool _isApplicationQuitting;
 
-        protected static T instance
+        public static T instance
         {
             get
             {

@@ -4,7 +4,6 @@ using _3._Scripts.UI.Elements;
 using _3._Scripts.UI.Panels.Base;
 using _3._Scripts.UI.Scriptable.Shop;
 using GBGamesPlugin;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 namespace _3._Scripts.UI.Panels
@@ -34,18 +33,10 @@ namespace _3._Scripts.UI.Panels
         {
             foreach (var slot in _shopSlots)
             {
-                if (!ItemUnlocked(slot.ID))
-                    slot.Lock();
-                else
-                {
-                    if (GBGames.saves.characterSaves.IsCurrentCharacter(slot.ID))
-                        slot.Select();
-                    else
-                        slot.Unselect();
-                }
+                SetSlotsState(slot.ID, slot);
             }
         }
-        
+
         private void SpawnItems()
         {
             var items = shopItems.OrderBy(obj => obj.Price).ToList();
@@ -54,17 +45,22 @@ namespace _3._Scripts.UI.Panels
                 var obj = Instantiate(prefab, container);
                 obj.SetView(item);
                 obj.SetAction(() => OnClick(item.ID));
-                if (!ItemUnlocked(item.ID))
-                    obj.Lock();
-                else
-                {
-                    if (GBGames.saves.characterSaves.IsCurrentCharacter(item.ID))
-                        obj.Select();
-                    else
-                        obj.Unselect();
-                }
+                SetSlotsState(item.ID, obj);
 
                 _shopSlots.Add(obj);
+            }
+        }
+
+        private void SetSlotsState(string id, ShopSlot obj)
+        {
+            if (!ItemUnlocked(id))
+                obj.Lock();
+            else
+            {
+                if (IsSelected(id))
+                    obj.Select();
+                else
+                    obj.Unselect();
             }
         }
 
@@ -72,20 +68,24 @@ namespace _3._Scripts.UI.Panels
         {
             if (ItemUnlocked(id))
             {
-                foreach (var slot in _shopSlots) slot.Unselect();
+                if (IsSelected(id)) return;
+                
                 Select(id);
-                GetSlot(id).Select();
+                foreach (var slot in _shopSlots) SetSlotsState(slot.ID, slot);
+                GBGames.instance.Save();
             }
             else
             {
                 Buy(id);
-                foreach (var slot in _shopSlots) slot.Unselect();
-                GetSlot(id).Select();
+                Select(id);
+                foreach (var slot in _shopSlots) SetSlotsState(slot.ID, slot);
+                GBGames.instance.Save();
             }
         }
 
         protected ShopSlot GetSlot(string id) => _shopSlots.FirstOrDefault(s => s.ID == id);
         protected abstract bool ItemUnlocked(string id);
+        protected abstract bool IsSelected(string id);
         protected abstract void Select(string id);
         protected abstract void Buy(string id);
     }

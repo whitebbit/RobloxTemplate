@@ -16,9 +16,9 @@ MonoBehaviour:
   minimumDelayBetweenInterstitial: 60
   enableBannerAutomatically: 1
   useCloudSaves: 1
-  autoSaveByInterval: 1
+  autoSaveByInterval: 0
   saveInterval: 5
-  saveOnChangeVisibilityState: 1
+  saveOnChangeVisibilityState: 0
   authPlayerAutomatically: 1
   yandexScopes: 1
   autoGameReadyAPI: 1

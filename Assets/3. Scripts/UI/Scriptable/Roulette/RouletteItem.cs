@@ -7,6 +7,8 @@ namespace _3._Scripts.UI.Scriptable.Roulette
 {
     public abstract class RouletteItem: ScriptableObject
     {
+        public abstract Sprite Icon();
+        public abstract string Title();
         
         public abstract void OnReward();
     }

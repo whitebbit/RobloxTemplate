@@ -1,6 +1,4 @@
 #if UNITY_WEBGL
-using System.Collections;
-using GBGamesPlugin;
 using InstantGamesBridge.Common;
 using InstantGamesBridge.Modules.Advertisement;
 using InstantGamesBridge.Modules.Device;
@@ -12,14 +10,11 @@ using InstantGamesBridge.Modules.Platform;
 using InstantGamesBridge.Modules.Player;
 using InstantGamesBridge.Modules.RemoteConfig;
 using InstantGamesBridge.Modules.Social;
-using UnityEngine;
 
 namespace InstantGamesBridge
 {
     public class Bridge : Singleton<Bridge>
     {
-        [SerializeField] private GBGames gbGames;
-        
         public static AdvertisementModule advertisement => instance._advertisement;
         public static GameModule game => instance._game;
         public static StorageModule storage => instance._storage; 
@@ -29,8 +24,9 @@ namespace InstantGamesBridge
         public static DeviceModule device => instance._device; 
         public static LeaderboardModule leaderboard => instance._leaderboard; 
         public static PaymentsModule payments => instance._payments; 
-        public static RemoteConfigModule remoteConfig => instance._remoteConfig; 
-
+        public static RemoteConfigModule remoteConfig => instance._remoteConfig;
+        public static bool initialized;
+        
         private AdvertisementModule _advertisement;
         private GameModule _game;
         private StorageModule _storage;
@@ -45,6 +41,7 @@ namespace InstantGamesBridge
         protected override void Awake()
         {
             base.Awake();
+            initialized = false;
             _platform = new PlatformModule();
             _game = gameObject.AddComponent<GameModule>();
             _player = gameObject.AddComponent<PlayerModule>();
@@ -55,10 +52,8 @@ namespace InstantGamesBridge
             _leaderboard = gameObject.AddComponent<LeaderboardModule>();
             _payments = gameObject.AddComponent<PaymentsModule>();
             _remoteConfig = gameObject.AddComponent<RemoteConfigModule>();
-
-            Instantiate(gbGames);
+            initialized = true;
         }
-        
     }
 }
 #endif

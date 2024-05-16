@@ -22,6 +22,6 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-1215627397-0
         values:
         - colorIndex: 9
-          iconNameOrGuid: 
+          iconNameOrGuid: Settings Icon
         - colorIndex: 9
-          iconNameOrGuid: 
+          iconNameOrGuid: StandaloneInputModule Icon

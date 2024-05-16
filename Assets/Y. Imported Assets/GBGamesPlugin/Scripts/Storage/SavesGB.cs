@@ -11,7 +11,10 @@ namespace GBGamesPlugin
         public int saveID;
 
         // Ваши сохранения, если вы привыкли пользоваться сохранением через объекты. Можно задать полям значения по умолчанию     
-        public CharacterSaves characterSaves = new();
+        public bool defaultLoaded;
+        
+        public SaveHandler<string> characterSaves = new();
+        public SaveHandler<string> trailSaves = new();
         public WalletSave walletSave = new();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_WEBGL
+using System.Collections;
 using InstantGamesBridge;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,19 +8,25 @@ namespace GBGamesPlugin
 {
     public partial class GBGames : MonoBehaviour
     {
-        public GBGamesSettings settings;
         public static GBGames instance { get; private set; }
-
+        public GBGamesSettings settings;
+        
         private void Awake()
         {
+            StartCoroutine(Initialize());
+        }
+
+        private IEnumerator Initialize()
+        {
             Singleton();
+            yield return new WaitUntil(() => Bridge.instance != null && Bridge.initialized);
             Storage();
             Advertisement();
             Platform();
             Player();
             Game();
         }
-
+        
         private void Singleton()
         {
             transform.SetParent(null);
@@ -34,9 +41,9 @@ namespace GBGamesPlugin
                 instance = this;
                 DontDestroyOnLoad(gameObject);
             }
-            
+
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = false;
+            Cursor.visible = true;
         }
 
         private void Advertisement()
@@ -49,9 +56,6 @@ namespace GBGamesPlugin
 
             if (instance.settings.enableBannerAutomatically)
                 ShowBanner();
-
-            if (instance.settings.saveOnChangeVisibilityState)
-                GameHiddenStateCallback += Save;
         }
 
         private void Platform()
@@ -81,6 +85,9 @@ namespace GBGamesPlugin
         private void Game()
         {
             Bridge.game.visibilityStateChanged += OnGameVisibilityStateChanged;
+            if (instance.settings.saveOnChangeVisibilityState)
+                GameHiddenStateCallback += Save;
         }
     }
 }
+#endif

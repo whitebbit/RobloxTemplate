@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _3._Scripts.UI.Enums;
 using _3._Scripts.UI.Scriptable.Shop;
 using _3._Scripts.UI.Structs;
 using TMPro;
-using UnityEditor.Localization;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 using VInspector;
 

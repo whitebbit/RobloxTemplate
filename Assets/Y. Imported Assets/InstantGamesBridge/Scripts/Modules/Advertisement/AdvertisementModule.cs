@@ -124,15 +124,14 @@ namespace InstantGamesBridge.Modules.Advertisement
 #endif
         }
 
-#if UNITY_EDITOR
-
+        #if UNITY_EDITOR
         public bool CanShowInterstitial()
         {
             var delta = DateTime.Now - _lastInterstitialShownTimestamp;
             return delta.TotalSeconds > _minimumDelayBetweenInterstitial;
         }
-#endif
-     
+        #endif
+        
         public void ShowRewarded()
         {
 #if !UNITY_EDITOR

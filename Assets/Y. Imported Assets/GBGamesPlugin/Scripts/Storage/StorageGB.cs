@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using InstantGamesBridge;
+using InstantGamesBridge.Common;
+using InstantGamesBridge.Modules.Platform;
 using InstantGamesBridge.Modules.Storage;
-using UnityEngine;
+#if GB_NEWTONSOFT_FOR_SAVES
 using Newtonsoft.Json;
+#endif
+using UnityEngine;
+
 namespace GBGamesPlugin
 {
     public partial class GBGames
@@ -15,7 +22,7 @@ namespace GBGamesPlugin
 
         public static event Action SaveLoadedCallback;
 
-        private const string SavesID = "saves_test_2";
+        private const string SavesID = "saves";
 
         /// <summary>
         /// Тип хранилища по умолчанию. Используется автоматически, если при работе с данными не указывать конкретный тип.
@@ -72,10 +79,14 @@ namespace GBGamesPlugin
             {
                 if (success)
                 {
+#if GB_NEWTONSOFT_FOR_SAVES
                     result = string.IsNullOrEmpty(data)
                         ? new SavesGB()
                         : JsonConvert.DeserializeObject<SavesGB>(data);
-                    
+#else
+                    result = new SavesGB();
+
+#endif
                     Message($"{storageType} loading saves success. Data - {data}");
                 }
                 else
@@ -127,9 +138,12 @@ namespace GBGamesPlugin
 
         private static IEnumerator SaveByStorageType(StorageType storageType)
         {
+#if GB_NEWTONSOFT_FOR_SAVES
             var data = JsonConvert.SerializeObject(saves);
             var saver = 0;
-
+#else
+            var data = "";
+#endif
             Bridge.storage.Set(SavesID, data, (success) =>
             {
                 if (success)
@@ -168,6 +182,5 @@ namespace GBGamesPlugin
         }
 
         #endregion
-
     }
 }

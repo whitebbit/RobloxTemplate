@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: selected
     m_Metadata:
       m_Items: []
+  - m_Id: 160290868174848
+    m_Key: trails
+    m_Metadata:
+      m_Items: []
+  - m_Id: 237112117043200
+    m_Key: spin
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

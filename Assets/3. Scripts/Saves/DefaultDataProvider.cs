@@ -8,23 +8,32 @@ namespace _3._Scripts.Saves
     public class DefaultDataProvider : MonoBehaviour
     {
         [SerializeField] private ShopItem defaultCharacter;
+        [SerializeField] private ShopItem defaultTrail;
 
         private void OnEnable()
         {
-            GBGames.SaveLoadedCallback += LoadComplete;
+            GBGames.SaveLoadedCallback += SetDefault;
         }
-
+    
+    
         private void OnDisable()
         {
-            GBGames.SaveLoadedCallback -= LoadComplete;
+            GBGames.SaveLoadedCallback -= SetDefault;
         }
 
-        private void LoadComplete()
+
+
+        private void SetDefault()
         {
-            if (!string.IsNullOrEmpty(GBGames.saves.characterSaves.currentCharacter)) return;
+            if (GBGames.saves.defaultLoaded) return;
             
-            GBGames.saves.characterSaves.currentCharacter = defaultCharacter.ID;
-            GBGames.saves.characterSaves.UnlockCharacter(defaultCharacter.ID);
+            GBGames.saves.characterSaves.current = defaultCharacter.ID;
+            GBGames.saves.characterSaves.Unlock(defaultCharacter.ID);
+            GBGames.saves.trailSaves.current = defaultTrail.ID;
+            GBGames.saves.trailSaves.Unlock(defaultTrail.ID);
+            
+            GBGames.saves.defaultLoaded = true;
+            GBGames.instance.Save();
         }
     }
 }
