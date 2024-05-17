@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _3._Scripts.Config;
 using _3._Scripts.Currency.Enums;
 using _3._Scripts.Currency.Scriptable;
 using _3._Scripts.Wallet;
@@ -16,12 +17,10 @@ namespace _3._Scripts.UI.Scriptable.Roulette
         [Tab("Base settings")]
         [SerializeField] private CurrencyType type;
         [SerializeField] private int count;
-        [Tab("Data")]
-        [SerializeField] private List<CurrencyData> currencyData;
-        
+
         public override Sprite Icon()
         {
-            return currencyData.FirstOrDefault(c => c.Type == type)?.Icon;
+            return Configuration.Instance.GetCurrency(type)?.Icon;
         }
 
         public override string Title()

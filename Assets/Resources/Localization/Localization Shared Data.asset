@@ -43,6 +43,40 @@ MonoBehaviour:
     m_Key: exit_resets_progress
     m_Metadata:
       m_Items: []
+  - m_Id: 321743813685248
+    m_Key: sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321810494730240
+    m_Key: upgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321915545268224
+    m_Key: pets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 518181047377920
+    m_Key: wheel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 518519477379072
+    m_Key: gifts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 518618991435776
+    m_Key: 'sound
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 522739043672064
+    m_Key: reward_timer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532435343384576
+    m_Key: remove
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

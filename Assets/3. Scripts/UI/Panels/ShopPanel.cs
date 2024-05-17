@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _3._Scripts.Config;
 using _3._Scripts.Currency.Scriptable;
 using _3._Scripts.UI.Elements;
 using _3._Scripts.UI.Panels.Base;
@@ -12,15 +13,14 @@ namespace _3._Scripts.UI.Panels
 {
     public abstract class ShopPanel : SimplePanel
     { 
-        [Tab("Data")]
-        [SerializeField] private List<ShopItem> shopItems = new();
-        [SerializeField] private List<CurrencyData> currencyData = new();
+        
         
         [Tab("Components")]
         [SerializeField] private Transform container;
         [SerializeField] private ShopSlot prefab;
 
         private readonly List<ShopSlot> _shopSlots = new();
+         protected abstract List<ShopItem> ShopItems();
 
         public override void Initialize()
         {
@@ -44,11 +44,11 @@ namespace _3._Scripts.UI.Panels
 
         private void SpawnItems()
         {
-            var items = shopItems.OrderBy(obj => obj.Price).ToList();
+            var items = ShopItems().OrderBy(obj => obj.Price).ToList();
             foreach (var item in items)
             {
                 var obj = Instantiate(prefab, container);
-                var currency = currencyData.FirstOrDefault(c => c.Type == item.CurrencyType);
+                var currency = Configuration.Instance.GetCurrency(item.CurrencyType);
                 obj.SetView(item, currency);
                 obj.SetAction(() => OnClick(item.ID));
                 SetSlotsState(item.ID, obj);

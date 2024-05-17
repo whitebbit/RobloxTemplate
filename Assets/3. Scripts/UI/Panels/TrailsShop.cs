@@ -1,10 +1,18 @@
-﻿using _3._Scripts.Wallet;
+﻿using System.Collections.Generic;
+using _3._Scripts.Config;
+using _3._Scripts.UI.Scriptable.Shop;
+using _3._Scripts.Wallet;
 using GBGamesPlugin;
 
 namespace _3._Scripts.UI.Panels
 {
     public class TrailsShop : ShopPanel
     {
+        protected override List<ShopItem> ShopItems()
+        {
+            return Configuration.Instance.AllTrails;
+        }
+
         protected override bool ItemUnlocked(string id)
         {
             return GBGames.saves.trailSaves.Unlocked(id);

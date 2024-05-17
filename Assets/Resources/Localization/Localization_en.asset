@@ -46,6 +46,38 @@ MonoBehaviour:
     m_Localized: Exit resets progress!
     m_Metadata:
       m_Items: []
+  - m_Id: 321743813685248
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321810494730240
+    m_Localized: Upgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321915545268224
+    m_Localized: Pets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 518181047377920
+    m_Localized: Wheel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 518519477379072
+    m_Localized: Gifts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 518618991435776
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 522739043672064
+    m_Localized: 'The reward is through:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532435343384576
+    m_Localized: Remove
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

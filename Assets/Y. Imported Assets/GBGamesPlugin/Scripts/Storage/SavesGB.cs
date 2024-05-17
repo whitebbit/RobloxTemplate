@@ -15,6 +15,7 @@ namespace GBGamesPlugin
         
         public SaveHandler<string> characterSaves = new();
         public SaveHandler<string> trailSaves = new();
+        public SaveManyHandler<string> petSaves = new();
         public WalletSave walletSave = new();
     }
 }
