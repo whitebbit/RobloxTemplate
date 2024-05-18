@@ -7,21 +7,13 @@ namespace _3._Scripts.Saves
 {
     public class DefaultDataProvider : MonoBehaviour
     {
-        [SerializeField] private ShopItem defaultCharacter;
-        [SerializeField] private ShopItem defaultTrail;
+        [SerializeField] private CharacterItem defaultCharacter;
+        [SerializeField] private TrailItem defaultTrail;
 
-        private void OnEnable()
+        private void Awake()
         {
-            GBGames.SaveLoadedCallback += SetDefault;
+            SetDefault();
         }
-    
-    
-        private void OnDisable()
-        {
-            GBGames.SaveLoadedCallback -= SetDefault;
-        }
-
-
 
         private void SetDefault()
         {

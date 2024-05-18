@@ -83,7 +83,9 @@ namespace _3._Scripts.UI.Panels
             if (GBGames.saves.petSaves.IsCurrent(data.ID)) return;
 
             _currentSlot.Select();
-            Player.Player.Instance.PetsHandler.CreatePet(data);
+            var player = Player.Player.Instance.transform;
+            var position = player.position + player.right * 2;
+            Player.Player.Instance.PetsHandler.CreatePet(data, position);
 
             GBGames.saves.petSaves.SetCurrent(data.ID);
             GBGames.instance.Save();

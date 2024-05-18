@@ -6,9 +6,9 @@ using GBGamesPlugin;
 
 namespace _3._Scripts.UI.Panels
 {
-    public class CharacterShop : ShopPanel
+    public class CharacterShop : ShopPanel<CharacterItem>
     {
-        protected override List<ShopItem> ShopItems()
+        protected override IEnumerable<CharacterItem> ShopItems()
         {
             return Configuration.Instance.AllSkins;
         }
@@ -25,18 +25,25 @@ namespace _3._Scripts.UI.Panels
 
         protected override void Select(string id)
         {
+            if (!ItemUnlocked(id)) return;
             if (IsSelected(id)) return;
 
             GBGames.saves.characterSaves.SetCurrent(id);
+            SetSlotsState();
+            GBGames.instance.Save();
         }
 
         protected override void Buy(string id)
-        {
+        { 
             if (ItemUnlocked(id)) return;
-            if (WalletManager.FirstCurrency < GetSlot(id).Price) return;
 
-            WalletManager.FirstCurrency -= GetSlot(id).Price;
+            var slot = GetSlot(id).Data;
+
+            if (!WalletManager.TrySpend(slot.CurrencyType, slot.Price)) return;
+            
+            WalletManager.SpendByType(slot.CurrencyType, slot.Price);
             GBGames.saves.characterSaves.Unlock(id);
+            Select(id);
         }
     }
 }

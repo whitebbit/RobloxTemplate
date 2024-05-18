@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _3._Scripts.Config;
+using _3._Scripts.Currency.Enums;
+using _3._Scripts.UI.Elements;
 using _3._Scripts.UI.Scriptable.Shop;
 using _3._Scripts.Wallet;
 using GBGamesPlugin;
 
 namespace _3._Scripts.UI.Panels
 {
-    public class TrailsShop : ShopPanel
+    public class TrailsShop : ShopPanel<TrailItem>
     {
-        protected override List<ShopItem> ShopItems()
+        protected override IEnumerable<TrailItem> ShopItems()
         {
             return Configuration.Instance.AllTrails;
         }
@@ -25,18 +28,31 @@ namespace _3._Scripts.UI.Panels
 
         protected override void Select(string id)
         {
+            if (!ItemUnlocked(id)) return;
             if (IsSelected(id)) return;
-
+            
             GBGames.saves.trailSaves.SetCurrent(id);
+            GBGames.instance.Save();
+            Player.Player.Instance.TrailHandler.SetTrail(id);
+            SetSlotsState();
         }
 
         protected override void Buy(string id)
         {
             if (ItemUnlocked(id)) return;
-            if (WalletManager.FirstCurrency < GetSlot(id).Price) return;
 
-            WalletManager.FirstCurrency -= GetSlot(id).Price;
+            var slot = GetSlot(id).Data;
+
+            if (!WalletManager.TrySpend(slot.CurrencyType, slot.Price)) return;
+            
+            WalletManager.SpendByType(slot.CurrencyType, slot.Price);
             GBGames.saves.trailSaves.Unlock(id);
+            Select(id);
+        }
+
+        protected override void OnSpawnItems(ShopSlot slot, TrailItem data)
+        {
+            slot.SetIconColor(data.Color);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace _3._Scripts.Player
         private Vector3 _velocity;
         private float _turnSmoothVelocity;
 
+        public float SpeedMultiplier { get; set; } = 1;
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -61,7 +62,7 @@ namespace _3._Scripts.Player
             var moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             transform.rotation = Quaternion.Euler(0, angle, 0);
-            _characterController.Move(moveDirection * speed * Time.deltaTime);
+            _characterController.Move(moveDirection * speed * SpeedMultiplier * Time.deltaTime);
         }
         
         private void Look()

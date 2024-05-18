@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using _3._Scripts.Currency.Scriptable;
 using _3._Scripts.UI.Scriptable.Shop;
 using _3._Scripts.UI.Structs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 using VInspector;
 
@@ -17,20 +19,17 @@ namespace _3._Scripts.UI.Elements
         [Tab("Rarity Tables")] [SerializeField]
         private List<RarityTable> rarityTables = new();
 
-        [Tab("UI")] [SerializeField] private Image glow;
+        [Tab("UI")] [SerializeField] private TMP_Text title;
+        [SerializeField] private Image glow;
         [SerializeField] private Image icon;
         [SerializeField] private Image table;
         [SerializeField] private Image backGlow;
         [Tab("Currency")] [SerializeField] private Image currencyIcon;
         [SerializeField] private TMP_Text price;
         [Tab("Localization")] [SerializeField] private string selectKey;
-        [Tab("Localization")] [SerializeField] private string selectedKey;
-
-
-        public string ID { get; private set; }
-
-        public int Price { get; private set; }
-
+        [SerializeField] private string selectedKey;
+        
+        public ShopItem Data { get; private set; }
         private Button _button;
 
         private void Awake()
@@ -41,39 +40,46 @@ namespace _3._Scripts.UI.Elements
         public void SetView(ShopItem item, CurrencyData currencyData)
         {
             var rarity = rarityTables.FirstOrDefault(r => r.Rarity == item.Rarity);
-            ID = item.ID;
-            Price = item.Price;
             table.sprite = rarity.Table;
             glow.color = rarity.MainColor;
             backGlow.color = rarity.AdditionalColor;
             icon.sprite = item.Icon;
             currencyIcon.sprite = currencyData.Icon;
+            title.text = item.Title();
+            Data = item;
         }
 
         public void SetAction(Action action) => _button.onClick.AddListener(() => action?.Invoke());
 
-        public void Select()
+        public async void Select()
         {
-            var word = LocalizationSettings.StringDatabase.GetTable("Localization").GetEntry(selectedKey)
-                .GetLocalizedString();
-            price.text = word;
+            var localizationTable = await GetLocalizationTable("Localization");
+            var localizedString = localizationTable[selectedKey].LocalizedValue;
+            price.text = localizedString;
             currencyIcon.gameObject.SetActive(false);
         }
 
-        public void Unselect()
+        public async void Unselect()
         {
-            var word = LocalizationSettings.StringDatabase.GetTable("Localization").GetEntry(selectKey)
-                .GetLocalizedString();
-            price.text = word;
+            var localizationTable = await GetLocalizationTable("Localization");
+            var localizedString = localizationTable[selectKey].LocalizedValue;
+            price.text = localizedString;
             currencyIcon.gameObject.SetActive(false);
+        }
 
+        private async Task<StringTable> GetLocalizationTable(string tableName)
+        {
+            var tableOperation = LocalizationSettings.StringDatabase.GetTableAsync(tableName);
+            await tableOperation.Task;
+            return tableOperation.Result;
         }
 
         public void Lock()
         {
-            price.text = Price.ToString();
+            price.text = Data.Price.ToString();
             currencyIcon.gameObject.SetActive(true);
-
         }
+
+        public void SetIconColor(Color color) => icon.color = color;
     }
 }

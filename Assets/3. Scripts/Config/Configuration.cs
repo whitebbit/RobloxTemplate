@@ -12,15 +12,15 @@ namespace _3._Scripts.Config
     public class Configuration : Singleton<Configuration>
     {
         [SerializeField] private List<CurrencyData> currencyData = new();
-        [SerializeField] private List<ShopItem> allSkins = new();
-        [SerializeField] private List<ShopItem> allTrails = new();
+        [SerializeField] private List<CharacterItem> allSkins = new();
+        [SerializeField] private List<TrailItem> allTrails = new();
         [SerializeField] private List<PetData> allPets = new();
 
         public IEnumerable<PetData> AllPets => allPets;
 
-        public List<ShopItem> AllSkins => allSkins;
+        public IEnumerable<CharacterItem> AllSkins => allSkins;
 
-        public List<ShopItem> AllTrails => allTrails;
+        public IEnumerable<TrailItem> AllTrails => allTrails;
         public CurrencyData GetCurrency(CurrencyType type) => currencyData.FirstOrDefault(c => c.Type == type);
     }
 }

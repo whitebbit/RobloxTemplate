@@ -80,12 +80,20 @@ namespace GBGamesPlugin
                 if (success)
                 {
 #if GB_NEWTONSOFT_FOR_SAVES
-                    result = string.IsNullOrEmpty(data)
-                        ? new SavesGB()
-                        : JsonConvert.DeserializeObject<SavesGB>(data);
+                    try
+                    {
+                        result = string.IsNullOrEmpty(data)
+                            ? new SavesGB()
+                            : JsonConvert.DeserializeObject<SavesGB>(data);
+                    }
+                    catch (Exception e)
+                    {
+                        Message(e.Message, LoggerState.error);
+                        result = new SavesGB();
+                        throw;
+                    }
 #else
                     result = new SavesGB();
-
 #endif
                     Message($"{storageType} loading saves success. Data - {data}");
                 }

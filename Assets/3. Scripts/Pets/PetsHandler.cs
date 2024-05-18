@@ -11,9 +11,10 @@ namespace _3._Scripts.Pets
 
         public void AddPet(Pet obj) => Pets.Add(obj);
 
-        public void CreatePet(PetData data)
+        public void CreatePet(PetData data, Vector3 position)
         {
             var pet = Object.Instantiate(data.Prefab);
+            pet.transform.position = position;
             pet.SetData(data);
             pet.Activate();
             AddPet(pet);

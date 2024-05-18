@@ -46,9 +46,16 @@ namespace _3._Scripts.Pets
                 }
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, speed * Time.deltaTime);
+            var distanceToPlayer = directionToPlayer.magnitude;
+            var moveSpeed = Mathf.Lerp(speed * 0.1f, speed * 1.25f, distanceToPlayer / followDistance);
 
-            transform.rotation = Quaternion.LookRotation(directionToPlayer);
+            transform.position = Vector3.Lerp(transform.position, _targetPosition, moveSpeed * Time.deltaTime);
+
+            if (directionToPlayer.sqrMagnitude > 0.01f)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(directionToPlayer),
+                    moveSpeed * Time.deltaTime);
+            }
         }
     }
 }
