@@ -10,7 +10,7 @@ namespace _3._Scripts.UI.Panels
     {
         protected override IEnumerable<CharacterItem> ShopItems()
         {
-            return Configuration.Instance.AllSkins;
+            return Configuration.Instance.AllCharacters;
         }
 
         protected override bool ItemUnlocked(string id)
@@ -28,6 +28,8 @@ namespace _3._Scripts.UI.Panels
             if (!ItemUnlocked(id)) return;
             if (IsSelected(id)) return;
 
+            var player = Player.Player.Instance;
+            player.CharacterHandler.SetCharacter(id, player.transform);
             GBGames.saves.characterSaves.SetCurrent(id);
             SetSlotsState();
             GBGames.instance.Save();

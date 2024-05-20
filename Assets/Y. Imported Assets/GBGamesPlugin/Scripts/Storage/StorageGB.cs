@@ -16,13 +16,13 @@ namespace GBGamesPlugin
     public partial class GBGames
     {
         public static SavesGB saves = new();
+        public static event Action SaveLoadedCallback;
 
         private static SavesGB _platformInternalSaves;
         private static SavesGB _localStorageSaves;
-
-        public static event Action SaveLoadedCallback;
-
         private const string SavesID = "saves";
+        private static DateTime _lastCloudSaveTime;
+
 
         /// <summary>
         /// Тип хранилища по умолчанию. Используется автоматически, если при работе с данными не указывать конкретный тип.
@@ -54,12 +54,10 @@ namespace GBGamesPlugin
 
         private IEnumerator FetchData()
         {
-            if (IsSupportedStorageType(StorageType.PlatformInternal) &&
-                IsAvailableStorageType(StorageType.PlatformInternal) && instance.settings.useCloudSaves)
+            if (CanLoadFromStorage(StorageType.PlatformInternal))
                 yield return LoadByStorageType(StorageType.PlatformInternal);
 
-            if (IsSupportedStorageType(StorageType.LocalStorage) &&
-                IsAvailableStorageType(StorageType.LocalStorage))
+            if (CanLoadFromStorage(StorageType.LocalStorage))
                 yield return LoadByStorageType(StorageType.LocalStorage);
 
             saves = _platformInternalSaves != null && _localStorageSaves != null &&
@@ -120,6 +118,18 @@ namespace GBGamesPlugin
             }
         }
 
+        private static bool CanLoadFromStorage(StorageType type)
+        {
+            if (!IsSupportedStorageType(type) || !IsAvailableStorageType(type)) return false;
+
+            return type switch
+            {
+                StorageType.LocalStorage => true,
+                StorageType.PlatformInternal => instance.settings.useCloudSaves,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
+        }
+
         #endregion
 
         #region Save
@@ -135,12 +145,10 @@ namespace GBGamesPlugin
 
         private static IEnumerator SaveData()
         {
-            if (IsSupportedStorageType(StorageType.PlatformInternal) &&
-                IsAvailableStorageType(StorageType.PlatformInternal) && instance.settings.useCloudSaves)
+            if (CanSaveToStorage(StorageType.PlatformInternal))
                 yield return SaveByStorageType(StorageType.PlatformInternal);
 
-            if (IsSupportedStorageType(StorageType.LocalStorage) &&
-                IsAvailableStorageType(StorageType.LocalStorage))
+            if (CanSaveToStorage(StorageType.LocalStorage))
                 yield return SaveByStorageType(StorageType.LocalStorage);
         }
 
@@ -169,12 +177,37 @@ namespace GBGamesPlugin
             yield return new WaitUntil(() => saver >= 1);
         }
 
+
         private IEnumerator IntervalSave()
         {
             while (true)
             {
                 yield return new WaitForSecondsRealtime(60 * instance.settings.saveInterval);
                 Save();
+            }
+        }
+
+        private static bool CanSaveToStorage(StorageType type)
+        {
+            if (!IsSupportedStorageType(type) || !IsAvailableStorageType(type))
+                return false;
+
+            switch (type)
+            {
+                case StorageType.LocalStorage:
+                    return true;
+                case StorageType.PlatformInternal when !instance.settings.useCloudSaves:
+                    return false;
+                case StorageType.PlatformInternal when !instance.settings.useCloudSaveInterval:
+                    return true;
+                case StorageType.PlatformInternal
+                    when !TimeUtils.HasTimeElapsed(_lastCloudSaveTime, instance.settings.cloudSaveInterval * 60):
+                    return false;
+                case StorageType.PlatformInternal:
+                    _lastCloudSaveTime = DateTime.Now;
+                    return true;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
         }
 

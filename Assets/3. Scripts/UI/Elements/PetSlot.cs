@@ -31,12 +31,23 @@ namespace _3._Scripts.UI.Elements
         public void Initialize(PetData data)
         {
             var rarity = rarityTables.FirstOrDefault(p => p.Rarity == data.Rarity);
-            var select = GBGames.saves.petSaves.IsCurrent(data.ID);
             Data = data;
             icon.gameObject.SetActive(true);
-            selected.DOFade(select ? 1 : 0, 0);
             icon.sprite = data.Icon;
             table.sprite = rarity.Table;
+
+            SetSelectedState(data.ID);
+        }
+
+        private void SetSelectedState(string id)
+        {
+            if (!selected) return;
+
+            var select = GBGames.saves.petSaves.IsCurrent(id);
+            var color = selected.color;
+            color.a = select ? 1 : 0;
+
+            selected.color = color;
         }
 
         public void SetAction(Action<PetSlot> action)

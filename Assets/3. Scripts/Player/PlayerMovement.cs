@@ -27,10 +27,11 @@ namespace _3._Scripts.Player
         private IInput _input;
         private Vector3 _velocity;
         private float _turnSmoothVelocity;
-
+        private PlayerAnimator _animator;
         public float SpeedMultiplier { get; set; } = 1;
         private void Awake()
         {
+            _animator = GetComponent<PlayerAnimator>();
             _characterController = GetComponent<CharacterController>();
             if (Camera.main is not null) _camera = Camera.main.transform;
         }
@@ -53,6 +54,7 @@ namespace _3._Scripts.Player
         private void Move()
         {
             var direction = _input.GetMovementAxis();
+            _animator.SetSpeed(direction.magnitude);
 
             if (!(direction.magnitude >= 0.1f)) return;
 
@@ -83,7 +85,9 @@ namespace _3._Scripts.Player
             if (_input.GetJump() && IsGrounded())
             {
                 _velocity.y = Mathf.Sqrt(jumpHeight * -2 * Gravity);
+                _animator.DoJump();
             }
+            _animator.SetGrounded(IsGrounded());
         }
 
         private void Fall()

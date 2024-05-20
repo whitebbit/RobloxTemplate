@@ -10,7 +10,7 @@ namespace GBGamesPlugin
     public partial class GBGames
     {
         
-        private static void Message(string message, LoggerState state = LoggerState.log)
+        public static void Message(string message, LoggerState state = LoggerState.log)
         {
             if (!instance.settings.debug) return;
             var prefix = state switch

@@ -1,4 +1,5 @@
-﻿using _3._Scripts.UI.Scriptable.Roulette;
+﻿using System.Collections.Generic;
+using _3._Scripts.UI.Scriptable.Roulette;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,8 @@ namespace _3._Scripts.UI.Elements
 {
     public class GiftSlot : MonoBehaviour
     {
-        [Tab("Data")] [SerializeField] private GiftItem item;
+        [Tab("Data")]
+        [SerializeField] private List<GiftItem> items = new();
         [Tab("UI")] 
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text title;
@@ -19,14 +21,16 @@ namespace _3._Scripts.UI.Elements
         [SerializeField] private float timeToTake;
         [SerializeField]private Timer timer;
         private bool _rewarded;
-        
+
+        private GiftItem _currentItem;
         public void Initialize()
         {
+            _currentItem = items[Random.Range(0, items.Count)];
             GetComponent<Button>().onClick.AddListener(GetReward);
             timer.StartTimer(timeToTake);
             timer.OnTimerEnd += () => timer.gameObject.SetActive(false);
-            icon.sprite = item.Icon();
-            title.text = item.Title();
+            icon.sprite = _currentItem.Icon();
+            title.text = _currentItem.Title();
             gotImage.DOFade(0, 0);
             gotImage.gameObject.SetActive(false);
         }
@@ -39,7 +43,7 @@ namespace _3._Scripts.UI.Elements
             gotImage.gameObject.SetActive(true);
             gotImage.DOFade(1, 0.15f);
             _rewarded = true;
-            item.OnReward();
+            _currentItem.OnReward();
         }
     }
 }

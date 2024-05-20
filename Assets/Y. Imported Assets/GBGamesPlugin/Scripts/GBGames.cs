@@ -1,4 +1,5 @@
 ﻿#if UNITY_WEBGL
+using System;
 using System.Collections;
 using InstantGamesBridge;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace GBGamesPlugin
     {
         public static GBGames instance { get; private set; }
         public GBGamesSettings settings;
+
         private void Awake()
         {
             StartCoroutine(Initialize());
@@ -23,9 +25,9 @@ namespace GBGamesPlugin
             Advertisement();
             Platform();
             Player();
-            Game(); 
+            Game();
         }
-        
+
         private void Singleton()
         {
             transform.SetParent(null);
@@ -79,6 +81,8 @@ namespace GBGamesPlugin
             Load();
             if (instance.settings.autoSaveByInterval)
                 StartCoroutine(IntervalSave());
+            
+            _lastCloudSaveTime = DateTime.Now.AddMinutes(-instance.settings.cloudSaveInterval);
         }
 
         private void Game()
