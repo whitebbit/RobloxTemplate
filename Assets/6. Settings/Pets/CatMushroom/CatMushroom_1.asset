@@ -15,6 +15,6 @@ MonoBehaviour:
   id: pet_catmushroom_1
   prefab: {fileID: 5752311066819551448, guid: 340f6fe09244ef340a6084a443380e37, type: 3}
   currencyType: 0
-  booster: 2
+  booster: 1.25
   icon: {fileID: 0}
   rarity: 1

@@ -43,6 +43,7 @@ namespace _3._Scripts.UI.Elements
             gotImage.gameObject.SetActive(true);
             gotImage.DOFade(1, 0.15f);
             _rewarded = true;
+            timer.TimerStopped = true;
             _currentItem.OnReward();
         }
     }

@@ -15,6 +15,6 @@ MonoBehaviour:
   id: pet_madnun_3
   prefab: {fileID: 193241125568088781, guid: e158ed991e1c4b946b045ad179c884d4, type: 3}
   currencyType: 0
-  booster: 6
+  booster: 4
   icon: {fileID: 0}
   rarity: 3

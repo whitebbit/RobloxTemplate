@@ -14,7 +14,7 @@ namespace _3._Scripts
         public event Action OnTimerStart;
         public event Action OnTimerEnd;
         private TMP_Text _timerText;
-
+        public bool TimerStopped { get; set; }
         private void Awake()
         {
             _timerText = GetComponent<TMP_Text>();
@@ -41,8 +41,11 @@ namespace _3._Scripts
             _isRunning = true;
         }
 
-        public bool TimerEnd() => _startTime.AddSeconds(_durationInSeconds) - DateTime.Now <= TimeSpan.Zero;
-
+        public bool TimerEnd()
+        {
+            return _startTime.AddSeconds(_durationInSeconds) - DateTime.Now <= TimeSpan.Zero;
+        }
+        public TimeSpan TimeToEnd() => _startTime.AddSeconds(_durationInSeconds) - DateTime.Now;
         public void StopTimer()
         {
             _isRunning = false;

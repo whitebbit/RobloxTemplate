@@ -6,7 +6,6 @@ using VInspector;
 
 namespace _3._Scripts.UI.Scriptable.Shop
 {
-    //[CreateAssetMenu(fileName = "ShopItem", menuName = "Shop Item", order = 0)]
     public abstract class ShopItem : ScriptableObject
     {
         [SerializeField] private string id;
@@ -17,7 +16,7 @@ namespace _3._Scripts.UI.Scriptable.Shop
 
 
         public abstract string Title();
-        
+
         public string ID => id;
         public Sprite Icon => icon;
         public Rarity Rarity => rarity;

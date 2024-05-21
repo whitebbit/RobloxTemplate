@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Eagle 5
   m_EditorClassIdentifier: 
   id: pet_eagle_6
-  prefab: {fileID: 2882114378958916980, guid: f633cb19974a6b645a77c1b25824d4a2, type: 3}
+  prefab: {fileID: 6086475097282083144, guid: 709d18f3608666943936812672135536, type: 3}
   currencyType: 0
-  booster: 5
+  booster: 2.28
   icon: {fileID: 0}
   rarity: 3

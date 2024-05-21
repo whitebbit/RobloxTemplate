@@ -5,7 +5,7 @@ namespace _3._Scripts.Saves
     [Serializable]
     public class WalletSave
     {
-        public int firstCurrency;
-        public int secondCurrency;
+        public float firstCurrency;
+        public float secondCurrency;
     }
 }

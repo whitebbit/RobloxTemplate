@@ -11,7 +11,7 @@ namespace _3._Scripts.Pets.Scriptables
         [Tab("Main")] [SerializeField] private string id;
         [SerializeField] private Pet prefab;
         [Tab("Booster")] [SerializeField] private CurrencyType currencyType;
-        [SerializeField] private int booster;
+        [SerializeField] private float booster;
         [Tab("UI")] [SerializeField] private Sprite icon;
         [SerializeField] private Rarity rarity;
 
@@ -19,7 +19,7 @@ namespace _3._Scripts.Pets.Scriptables
         public Rarity Rarity => rarity;
         public Pet Prefab => prefab;
         public CurrencyType CurrencyType => currencyType;
-        public int Booster => booster;
+        public float Booster => booster;
         public string ID => id;
 
         public static void Activate()

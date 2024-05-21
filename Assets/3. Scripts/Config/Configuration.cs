@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _3._Scripts.Characters;
 using _3._Scripts.Currency.Enums;
 using _3._Scripts.Currency.Scriptable;
 using _3._Scripts.Pets.Scriptables;
@@ -16,9 +17,12 @@ namespace _3._Scripts.Config
         [SerializeField] private List<CharacterItem> allCharacters = new();
         [SerializeField] private List<TrailItem> allTrails = new();
         [SerializeField] private List<PetData> allPets = new();
+        [SerializeField] private List<UpgradeItem> allUpgrades = new();
+        
 
         public IEnumerable<PetData> AllPets => allPets;
 
+        public IEnumerable<UpgradeItem> AllUpgrades => allUpgrades;
         public IEnumerable<CharacterItem> AllCharacters => allCharacters;
 
         public IEnumerable<TrailItem> AllTrails => allTrails;

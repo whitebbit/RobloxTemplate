@@ -78,6 +78,14 @@ MonoBehaviour:
     m_Localized: Remove
     m_Metadata:
       m_Items: []
+  - m_Id: 1805534839840768
+    m_Localized: Unlock Pet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1826039177289728
+    m_Localized: "\u0410utoclicker\n"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

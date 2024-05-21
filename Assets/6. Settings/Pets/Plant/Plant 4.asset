@@ -15,6 +15,6 @@ MonoBehaviour:
   id: pet_plant_5
   prefab: {fileID: 5620615137787319082, guid: 6743a10ef2992b44ba75d2b81fdfc9b1, type: 3}
   currencyType: 0
-  booster: 5
+  booster: 2.5
   icon: {fileID: 0}
   rarity: 3

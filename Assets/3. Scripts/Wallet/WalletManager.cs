@@ -8,28 +8,28 @@ namespace _3._Scripts.Wallet
     {
         public static event Action<int ,int> OnFirstCurrencyChange;
 
-        public static int FirstCurrency
+        public static float FirstCurrency
         {
             get => GBGames.saves.walletSave.firstCurrency;
             set
             {
-                OnFirstCurrencyChange?.Invoke(FirstCurrency, value);
+                OnFirstCurrencyChange?.Invoke((int) FirstCurrency, (int) value);
                 GBGames.saves.walletSave.firstCurrency = value;
             }
         }
         
         public static event Action<int ,int> OnSecondCurrencyChange;
-        public static int SecondCurrency
+        public static float SecondCurrency
         {
             get => GBGames.saves.walletSave.secondCurrency;
             set
             {
-                OnSecondCurrencyChange?.Invoke(SecondCurrency, value);
+                OnSecondCurrencyChange?.Invoke((int) SecondCurrency, (int) value);
                 GBGames.saves.walletSave.secondCurrency = value;
             }
         }
 
-        public static void SpendByType(CurrencyType currencyType, int count)
+        public static void SpendByType(CurrencyType currencyType, float count)
         {
             if(!TrySpend(currencyType, count)) return;
 
@@ -45,7 +45,7 @@ namespace _3._Scripts.Wallet
                     throw new ArgumentOutOfRangeException(nameof(currencyType), currencyType, null);
             }
         }
-        public static bool TrySpend(CurrencyType currencyType, int count)
+        public static bool TrySpend(CurrencyType currencyType, float count)
         {
             return currencyType switch
             {

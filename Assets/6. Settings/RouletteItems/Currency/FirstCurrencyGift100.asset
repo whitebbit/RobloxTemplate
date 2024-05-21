@@ -14,6 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   count: 100
-  currencyData:
-  - {fileID: 11400000, guid: 283ebc26f035478489d2b7dba6ddca0a, type: 2}
-  - {fileID: 11400000, guid: 260de3df721b6dc44a53dd142a568481, type: 2}

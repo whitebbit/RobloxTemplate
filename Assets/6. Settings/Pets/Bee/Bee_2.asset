@@ -15,6 +15,6 @@ MonoBehaviour:
   id: pet_bee_2
   prefab: {fileID: 6066682286108101919, guid: 411bbd57ec24a2d4aa7c5c037f33eb6d, type: 3}
   currencyType: 0
-  booster: 1
+  booster: 0.75
   icon: {fileID: 0}
   rarity: 1
